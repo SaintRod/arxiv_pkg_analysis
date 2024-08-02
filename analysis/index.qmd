@@ -1,0 +1,214 @@
+---
+title: "Arxiv Package Analysis"
+author:
+    name: Santiago Rodriguez
+    email: santiago.rodriguez@thealgo.group
+jupyter: python3
+format:
+    html:
+        echo: false
+execute:
+    warning: false
+---
+
+```{python, sources}
+# https://quarto.org/docs/publishing/github-pages.html#ignoring-output
+```
+
+```{python, imports}
+import arxiv
+from datetime import date
+import polars as pl
+from plotnine import ggplot, aes, geom_line, labs, theme_minimal
+```
+
+```{python, setup_arxiv_client}
+# Construct the default API client.
+client = arxiv.Client()
+```
+
+```{python, arxiv_results_r}
+arxiv_search_query_r = ['"r package"']
+arxiv_search_query_r = " OR ".join(arxiv_search_query_r)
+
+search_r = arxiv.Search(
+    query = f"cat:stat.* AND {arxiv_search_query_r}",
+    max_results = None
+)
+
+results_iter_r = client.results(search_r)
+results_r = [results for results in results_iter_r]
+```
+
+```{python, arxiv_results_py}
+arxiv_search_query_py = ['"python package"', '"python module"']
+arxiv_search_query_py = " OR ".join(arxiv_search_query_py)
+
+search_py = arxiv.Search(
+    query = f"cat:stat.* AND {arxiv_search_query_py}",
+    max_results = None
+)
+
+results_iter_py = client.results(search_py)
+results_py = [results for results in results_iter_py]
+```
+
+```{python, arxiv_results_julia}
+arxiv_search_query_julia = ['"julia package"']
+arxiv_search_query_julia = " OR ".join(arxiv_search_query_julia)
+
+search_julia = arxiv.Search(
+    query = f"cat:stat.* AND all:{arxiv_search_query_julia}",
+    max_results = None
+)
+
+results_iter_julia = client.results(search_julia)
+results_julia = [results for results in results_iter_julia]
+```
+
+```{python}
+
+```
+
+# About
+
+Howdy
+
+As often happens with curious minds, I grew curious about something. Recently, I was browsing the statistics section of [Arxiv](https://arxiv.org/) for papers on functional data analysis when a thought came to me - *I wonder what [coding] languages are most prevalent on Arxiv?*
+
+For those unfamiliar, from the Arxiv website:
+
+> Arxiv is a free distribution service and an open-access archive for nearly 2.4 million scholarly articles in the fields of physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics. Materials on this site are not peer-reviewed by arXiv.
+
+Since the original thought is a bit broad, an approximiation will have to suffice. Instead of analyzing the use of all languages across all sections for all purposes the scope of the analysis will focus on the mention of *packages* in the *statistics* section. The coding languages to be analyzed are **Julia**, **Python**, and **R**.
+
+# Overall
+
+```{python, get_list_of_years}
+list_years_r = [r.published.year for r in results_r]
+list_years_py = [r.published.year for r in results_py]
+list_years_julia = [r.published.year for r in results_julia]
+```
+
+- R:
+    - search terms: `{python} arxiv_search_query_r`
+    - `{python} "{:,}".format(len(results_r))` results
+    - first mentioned in `{python} min(list_years_r)`
+- Python:
+    - search terms: `{python} arxiv_search_query_py`
+    - `{python} "{:,}".format(len(results_py))` results
+    - first mentioned in `{python} min(list_years_py)`
+- Julia:
+    - search terms: `{python} arxiv_search_query_julia`
+    - `{python} "{:,}".format(len(results_julia))` results
+    - first mentioned in `{python} min(list_years_julia)`
+
+Overall, R packages have been more frequently discussed that Python or Julia packages in the statistics section of Arxiv.
+
+# Results by Month
+
+```{python, list_of_data}
+# str
+list_date_strings_r = [r.published.strftime("%B %Y") for r in results_r]
+list_date_strings_py = [r.published.strftime("%B %Y") for r in results_py]
+list_date_strings_julia = [r.published.strftime("%B %Y") for r in results_julia]
+
+# date
+list_date_r = [date(year=r.published.year, month=r.published.month, day=1) for r in results_r]
+list_date_py = [date(year=r.published.year, month=r.published.month, day=1) for r in results_py]
+list_date_julia = [date(year=r.published.year, month=r.published.month, day=1) for r in results_julia]
+
+# lang
+list_coding_lang = ["R"] * len(results_r) + ["Python"] * len(results_py) + ["Julia"] * len(results_julia)
+```
+
+```{python, dict_of_data}
+dict_of_data = {
+    "language": list_coding_lang,
+    "date_str": list_date_strings_r + list_date_strings_py + list_date_strings_julia,
+    "date": list_date_r + list_date_py + list_date_julia,
+}
+```
+
+```{python, polars_dataframe}
+df = pl.DataFrame(dict_of_data)
+```
+
+```{python, group_by_and_agg}
+grouped_df = df \
+    .group_by(['date_str', 'date', 'language']) \
+    .len() \
+    .rename({'len': 'n'}) \
+    .sort('date')
+```
+
+```{python, plot1, fig.width = 15, fig.height = 10}
+# Create the plot
+(
+    ggplot(grouped_df, aes(x='date', y='n', color='language', group='language')) +
+    geom_line() +
+    labs(
+        title='Monthly Mentions',
+        subtitle="All time",
+        x='Date',
+        y='Frequency',
+        color='Language'
+    ) +
+    theme_minimal()
+)
+```
+
+```{python, plot2, fig.width = 15, fig.height = 10}
+tmp = date.today().year - 1
+
+# Create the plot
+(
+    ggplot(
+        grouped_df.filter(pl.col('date').dt.year() >= tmp),
+        aes(x='date', y='n', color='language', group='language')
+    ) +
+    geom_line() +
+    labs(
+        title='Monthly Mentions',
+        subtitle=f"Min Year: {tmp}",
+        x='Date',
+        y='Frequency',
+        color='Language'
+    ) +
+    theme_minimal()
+)
+```
+
+```{python}
+
+```
+
+**R**
+
+For years mentions of `{python} arxiv_search_query_r` on Arxiv grew steadily. In the past few years though, the number of mentions of have trended downward.
+
+**Python**
+
+Meanwhile mentions of `{python} arxiv_search_query_py` have slowly trended upward. I wonder if the rate of Python mentions will increase similar to those of the R mentions?
+
+**Julia**
+
+With only `{python} "{:,}".format(len(results_julia))` Julia results there are too few mentions to make an inference. However, I am a big fan of Julia so I hope to see more posts on Arxiv about Julia packages.
+
+# Conclusion and Next Steps
+
+I'm not surprised that R mentions were most prevalent as R and statistics go hand-in-hand. However, unsurprisingly, Python mentions have increased since `{python} min(list_years_py)`. I'd definitely like to see more Julia mentions.
+
+Well, my curiosity has been satisifed so I don't plan on pursuing this further. However, I do have some thoughts about what I *could* do with this information.
+
+- time series forecasting
+    - great, so we know what mentions have been but where will mentions be next month, year, etc.?
+- functional data analysis
+    - plot smoothed curves as the raw data is quite jagged
+    - analyze the rate of change of the different coding languages (i.e, derivatives)
+- visualizations
+    - practice displaying the information presented here in different formats
+
+# Appendix
+
+Thank you to arXiv for use of its open access interoperability.
