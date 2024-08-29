@@ -2,6 +2,8 @@
 
 An analysis of packages discussed, presented, mentioned in arxiv.
 
+Github Pages URL: [https://saintrod.github.io/arxiv_pkg_analysis/](https://saintrod.github.io/arxiv_pkg_analysis/).
+
 # Software
 
 - Python 3.10
