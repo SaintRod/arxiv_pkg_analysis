@@ -70,6 +70,8 @@ results_julia = [results for results in results_iter_julia]
 
 ```
 
+Published on `{python} date.today().strftime("%b %d, %Y")`
+
 # About
 
 Howdy
@@ -212,5 +214,3 @@ Well, my curiosity has been satisifed so I don't plan on pursuing this further. 
 # Appendix
 
 Thank you to arXiv for use of its open access interoperability.
-
-Published on `{python} date.today().strftime("%b %d, %Y")`
