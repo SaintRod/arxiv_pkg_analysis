@@ -6,17 +6,10 @@ project:
 
 website:
   title: "Arxiv Package Analysis"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  navbar: false
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-
-
-
