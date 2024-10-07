@@ -6,7 +6,19 @@ project:
 
 website:
   title: "Arxiv Package Analysis"
-  navbar: false
+  site-url: "https://saintrod.github.io/arxiv_pkg_analysis/"
+  navbar:
+    right:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/santiagorodriguez91/
+      - icon: github
+        href: https://github.com/SaintRod/
+      - icon: gitlab
+        href: https://gitlab.com/hail_hydra
+  page-footer: 
+    background: dark 
+    left: © 2024 Santiago Rodriguez
+    right: Built with Quarto
 
 format:
   html:
