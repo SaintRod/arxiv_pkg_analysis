@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,6 +88,12 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://sr-portfolio.thealgo.group"> 
+<span class="menu-text">Portfolio</span></a>
+  </li>  
+</ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://www.linkedin.com/in/santiagorodriguez91/"> <i class="bi bi-linkedin" role="img">
@@ -115,19 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a></li>
-  <li><a href="#overall" id="toc-overall" class="nav-link" data-scroll-target="#overall">Overall</a></li>
-  <li><a href="#results-by-month" id="toc-results-by-month" class="nav-link" data-scroll-target="#results-by-month">Results by Month</a></li>
-  <li><a href="#conclusion-and-next-steps" id="toc-conclusion-and-next-steps" class="nav-link" data-scroll-target="#conclusion-and-next-steps">Conclusion and Next Steps</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -156,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Published on Oct 07, 2024</p>
+<p>Published on Nov 05, 2024</p>
 <section id="about" class="level1">
 <h1>About</h1>
 <p>Howdy</p>
@@ -173,13 +167,13 @@ ul.task-list li input[type="checkbox"] {
 <li>R:
 <ul>
 <li>search terms: “r package”</li>
-<li>1,769 results</li>
+<li>1,789 results</li>
 <li>first mentioned in 2005</li>
 </ul></li>
 <li>Python:
 <ul>
 <li>search terms: “python package” OR “python module”</li>
-<li>237 results</li>
+<li>241 results</li>
 <li>first mentioned in 2011</li>
 </ul></li>
 <li>Julia:
@@ -193,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="results-by-month" class="level1">
 <h1>Results by Month</h1>
-<div id="786701b7" class="cell" data-execution_count="12">
+<div id="1e9518c7" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -202,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<div id="613f1c08" class="cell" data-execution_count="13">
+<div id="1fc75e45" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -352,6 +346,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

@@ -6,9 +6,11 @@ author:
 jupyter: python3
 format:
     html:
-        echo: false
+        link-external-icon: true
+        link-external-newwindow: true
 execute:
     warning: false
+    echo: false
 ---
 
 ```{python, sources}

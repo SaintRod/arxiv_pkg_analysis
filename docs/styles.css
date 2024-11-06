@@ -1,1 +1,107 @@
 /* css styles */
+/* General font styling */
+body {
+    font-family: 'Helvetica', Arial, sans-serif;
+    background-color: #ffffff;  /* Light background for readability */
+    color: #333333;  /* Dark text for high contrast */
+    line-height: 1.5;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica', sans-serif;
+    color: #005f73;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h1.title {
+    color: #005f73;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #ca6702;  /* Darker shade on hover */
+    text-decoration: underline;
+}
+
+/* Navigation bar */
+.navbar {
+    background-color: #e9ecef;
+    padding: 1rem;
+}
+
+.navbar a {
+    color: #005f73;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+}
+
+.navbar a:hover {
+    background-color: #94d2bd;
+    color: #fff;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #005f73;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #0a9396;
+}
+
+/* Code blocks */
+pre {
+    background-color: #f0f4f8;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+}
+
+/* Accessibility enhancements */
+button:focus, a:focus {
+    outline: 3px solid #ca6702;
+}
+
+a.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #ffffff;
+    color: #005f73;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+a.skip-link:focus {
+    top: 0;
+}
+
+.quarto-title-banner {
+    background-color: #ffffff;  /* White background like the body */
+    border: none;               /* Optional: Remove any borders */
+}

@@ -8,6 +8,9 @@ website:
   title: "Arxiv Package Analysis"
   site-url: "https://saintrod.github.io/arxiv_pkg_analysis/"
   navbar:
+    left:
+      - text: Portfolio
+        href: https://sr-portfolio.thealgo.group
     right:
       - icon: linkedin
         href: https://www.linkedin.com/in/santiagorodriguez91/
@@ -24,4 +27,3 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    toc: true
